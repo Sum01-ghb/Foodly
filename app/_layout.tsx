@@ -1,10 +1,11 @@
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import "./globals.css";
 
 export default function RootLayout() {
-  const [fonstloaded, error] = useFonts({
+  const [fontsLoaded, error] = useFonts({
     "Quicksand-Bold": require("../assets/fonts/Quicksand-Bold.ttf"),
     "Quicksand-Medium": require("../assets/fonts/Quicksand-Medium.ttf"),
     "Quicksand-Regular": require("../assets/fonts/Quicksand-Regular.ttf"),
@@ -14,8 +15,16 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (error) throw error;
-    if (fonstloaded) SplashScreen.hideAsync();
-  }, [fonstloaded, error]);
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded, error]);
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  if (!fontsLoaded && !error) {
+    return null;
+  }
+
+  return (
+    <SafeAreaProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </SafeAreaProvider>
+  );
 }
