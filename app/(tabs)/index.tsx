@@ -28,7 +28,7 @@ export default function Index() {
                   isEven ? "flex-row-reverse" : "flex-row"
                 )}
                 style={{ backgroundColor: item.color }}
-                android_ripple={{ color: "#fffff22" }}
+                android_ripple={{ color: "#ffffff22" }}
               >
                 {() => (
                   <Fragment>
